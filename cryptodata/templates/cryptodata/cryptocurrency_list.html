@@ -1,0 +1,13 @@
+{% extends "base.html" %}  <!-- Replace 'base.html' with your base template -->
+{% block title %}Crypto Coins Prices{% endblock %}
+{% block content %}
+    <h1>Cryptocurrencies</h1>
+    <ul>
+        {% for coin in cryptocurrencies %}
+            <li>{{ coin.name }} - {{ coin.price }} - {{ coin.market_cap }} - {{ coin.volume_usd }} - {{ coin.volume }} - {{ coin.percent_change }} - {{ coin.created_at }} - {{ coin.updated_at }}</li>
+            <!-- Add any other fields you want to display -->
+        {% empty %}
+            <li>No cryptocurrencies found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

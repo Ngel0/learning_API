@@ -1,11 +1,35 @@
-{% extends "base.html" %}  <!-- Replace 'base.html' with your base template -->
+{% extends "base.html" %}
 {% block title %}Crypto Coins Prices{% endblock %}
 {% block content %}
-    <h1>Cryptocurrencies</h1>
+<h1>Cryptocurrencies</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Market Cap</th>
+            <th>Volume</th>
+            <th>% Change</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for coin in cryptocurrencies %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ coin.name }}</td>
+            <td>${{ coin.price }}</td>
+            <td>${{ coin.market_cap }}</td>
+            <td>${{ coin.volume }}</td>
+            <td>{{ coin.percent_change }}%</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
     <ul>
         {% for coin in cryptocurrencies %}
-            <li>{{ coin.name }} - {{ coin.price }} - {{ coin.market_cap }} - {{ coin.volume_usd }} - {{ coin.volume }} - {{ coin.percent_change }} - {{ coin.created_at }} - {{ coin.updated_at }}</li>
-            <!-- Add any other fields you want to display -->
+            <li>{{ coin.name }} - {{ coin.created_at }} - {{ coin.updated_at }}</li>
         {% empty %}
             <li>No cryptocurrencies found.</li>
         {% endfor %}

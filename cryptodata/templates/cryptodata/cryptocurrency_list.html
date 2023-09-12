@@ -9,19 +9,20 @@
             <th>Name</th>
             <th>Price</th>
             <th>Market Cap</th>
-            <th>Volume</th>
-            <th>% Change</th>
+            <th>Volume(24h)</th>
+            <th>% Change(24h)</th>
         </tr>
     </thead>
     <tbody>
+        {% load coin_filters %}
         {% for coin in cryptocurrencies %}
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ coin.name }}</td>
-            <td>${{ coin.price }}</td>
-            <td>${{ coin.market_cap }}</td>
-            <td>${{ coin.volume }}</td>
-            <td>{{ coin.percent_change }}%</td>
+            <td>${{ coin.price|decimal_digits_format|add_commas }}</td>
+            <td>${{ coin.market_cap|floatformat:"0g" }}</td>
+            <td>${{ coin.volume|floatformat:"0g" }}</td>
+            <td>{{ coin.percent_change|floatformat:2 }}%</td>
         </tr>
         {% endfor %}
     </tbody>

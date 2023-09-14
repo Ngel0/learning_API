@@ -4,6 +4,8 @@ from .models import Cryptocurrency
 from django.http import HttpResponse
 from django.views.generic import ListView
 import os
+from django.core.paginator import Paginator
+
 
 # Create your views here.
 class CoinMarketCap:
@@ -41,7 +43,7 @@ class CoinMarketCap:
 
 def fetch_cryptocurrency_data():
     api_key = os.environ['API_KEY']
-    limit = 150
+    limit = 200
     cryptocurrencies = CoinMarketCap(api_key).get_latest_data(limit)
     for coin in cryptocurrencies:
         Cryptocurrency.objects.update_or_create(
@@ -60,3 +62,16 @@ class ListCoinsView(ListView):
     model = Cryptocurrency
     #template_name = 'cryptocurrency_list.html'
     context_object_name = 'cryptocurrencies'
+    paginate_by = 30
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.order_by('-market_cap')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        paginator = Paginator(self.model.objects.order_by('-market_cap'), self.paginate_by)
+        page_number = int(self.request.GET.get('page', 1))
+        cryptocurrencies = paginator.get_page(page_number)
+        context['cryptocurrencies'] = cryptocurrencies
+        return context

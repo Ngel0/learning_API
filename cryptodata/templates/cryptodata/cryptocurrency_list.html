@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Crypto Coins Prices{% endblock %}
+{% block head %}
+<style>
+.align-right {
+  text-align: right;
+}
+</style>
+{% endblock %}
 {% block content %}
 <h1>Cryptocurrencies</h1>
 {% if cryptocurrencies %}
@@ -8,10 +15,10 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">% Change(24h)</th>
-                <th scope="col">Market Cap</th>
-                <th scope="col">Volume(24h)</th>
+                <th scope="col" class="align-right">Price</th>
+                <th scope="col" class="align-right">24 h%</th>
+                <th scope="col" class="align-right">Market Cap</th>
+                <th scope="col" class="align-right">Volume(24h)</th>
             </tr>
         </thead>
         <tbody>
@@ -19,11 +26,11 @@
             {% for coin in cryptocurrencies %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ coin.name }}</td>
-                    <td>${{ coin.price|decimal_digits_format|add_commas }}</td>
-                    <td>{{ coin.percent_change|floatformat:2 }}%</td>
-                    <td>${{ coin.market_cap|floatformat:"0g" }}</td>
-                    <td>${{ coin.volume|floatformat:"0g" }}</td>
+                    <th scope="row">{{ coin.name }}</th>
+                    <td class="align-right">${{ coin.price|decimal_digits_format|add_commas }}</td>
+                    <td class="align-right">{{ coin.percent_change|floatformat:2 }}%</td>
+                    <td class="align-right">${{ coin.market_cap|floatformat:"0g" }}</td>
+                    <td class="align-right">${{ coin.volume|floatformat:"0g" }}</td>
                 </tr>
             {% endfor %}
         </tbody>

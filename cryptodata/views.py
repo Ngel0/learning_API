@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 
 
 # Create your views here.
+# Class for handling API from CoinMarketCap
 class CoinMarketCap:
     #https://coinmarketcap.com/api/documentation/v1/
     def __init__(self, token) -> None:
@@ -41,6 +42,7 @@ class CoinMarketCap:
             data = response.json()['data']
         return data
 
+# Scheduled api call
 def fetch_cryptocurrency_data():
     api_key = os.environ['API_KEY']
     limit = 200
@@ -60,7 +62,6 @@ def fetch_cryptocurrency_data():
 
 class ListCoinsView(ListView):
     model = Cryptocurrency
-    #template_name = 'cryptocurrency_list.html'
     context_object_name = 'cryptocurrencies'
     paginate_by = 30
 

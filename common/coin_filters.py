@@ -1,6 +1,7 @@
 from django import template
 
 register = template.Library()
+# Filter for displaying decimal digits of coin prices
 @register.filter
 def decimal_digits_format(value):
     if int(value) > 0:
@@ -18,6 +19,7 @@ def decimal_digits_format(value):
         str_value = "{:.{}f}".format(value, number_of_decimal_digits)
         return str_value
 
+# Adds commas by thousand
 @register.filter
 def add_commas(value):
     integer_part, decimal_part = str(value).split('.')

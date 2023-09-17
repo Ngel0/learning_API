@@ -1,7 +1,5 @@
-from django.shortcuts import render
 import requests
 from .models import Cryptocurrency
-from django.http import HttpResponse
 from django.views.generic import ListView
 import os
 from django.core.paginator import Paginator
@@ -43,9 +41,8 @@ class CoinMarketCap:
         return data
 
 # Scheduled api call
-def fetch_cryptocurrency_data():
+def fetch_cryptocurrency_data(limit):
     api_key = os.environ['API_KEY']
-    limit = 200
     cryptocurrencies = CoinMarketCap(api_key).get_latest_data(limit)
     for coin in cryptocurrencies:
         Cryptocurrency.objects.update_or_create(

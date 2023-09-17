@@ -1,4 +1,5 @@
 from django import template
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 # Filter for displaying decimal digits of coin prices
@@ -27,3 +28,10 @@ def add_commas(value):
     integer_part_with_commas = ','.join([integer_part[i:i + 3] for i in range(0, len(integer_part), 3)])
     integer_part_with_commas = integer_part_with_commas[::-1]
     return f'{integer_part_with_commas}.{decimal_part}'
+@register.filter
+def percentage_format(value):
+    str_value = str(value)
+    if str_value[0] == '-':
+        return mark_safe(f"<span style='color: red'>&#9662;{str_value[1:]}%</span>")
+    else:
+        return mark_safe(f"<span style='color: green'>&#9652;{str_value}%</span>")

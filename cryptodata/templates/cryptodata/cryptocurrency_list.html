@@ -20,8 +20,8 @@
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <th scope="row">{{ coin.name }}</th>
-                    <td class="align-right">${{ coin.price|decimal_digits_format|add_commas }}</td>
-                    <td class="align-right">{{ coin.percent_change|floatformat:2 }}%</td>
+                    <td class="align-right"><strong>${{ coin.price|decimal_digits_format|add_commas }}</strong></td>
+                    <td class="align-right"><strong>{{ coin.percent_change|floatformat:2|percentage_format }}</strong></td>
                     <td class="align-right">${{ coin.market_cap|floatformat:"0g" }}</td>
                     <td class="align-right">${{ coin.volume|floatformat:"0g" }}</td>
                 </tr>

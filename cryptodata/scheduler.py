@@ -1,5 +1,5 @@
 from apscheduler.schedulers.background import BackgroundScheduler
-from .views import fetch_cryptocurrency_data, f20
+from .views import fetch_cryptocurrency_data
 
 def schedule_cryptocurrency_data_update():
     scheduler = BackgroundScheduler()

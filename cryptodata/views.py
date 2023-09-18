@@ -53,7 +53,9 @@ def fetch_cryptocurrency_data(limit):
                 'price': coin['quote']['USD']['price'],
                 'market_cap': coin['quote']['USD']['market_cap'],
                 'volume': coin['quote']['USD']['volume_24h'],
-                'percent_change': coin['quote']['USD']['percent_change_24h'],
+                'percent_change_1h': coin['quote']['USD']['percent_change_1h'],
+                'percent_change_24h': coin['quote']['USD']['percent_change_24h'],
+                'percent_change_7d': coin['quote']['USD']['percent_change_7d'],
             }
         )
 

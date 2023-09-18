@@ -9,7 +9,9 @@
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col" class="align-right">Price</th>
-                <th scope="col" class="align-right">24 h%</th>
+                <th scope="col" class="align-right">1h %</th>
+                <th scope="col" class="align-right">24h %</th>
+                <th scope="col" class="align-right">7d %</th>
                 <th scope="col" class="align-right">Market Cap</th>
                 <th scope="col" class="align-right">Volume(24h)</th>
             </tr>
@@ -21,7 +23,9 @@
                     <td>{{ forloop.counter }}</td>
                     <th scope="row">{{ coin.name }}</th>
                     <td class="align-right"><strong>${{ coin.price|decimal_digits_format|add_commas }}</strong></td>
-                    <td class="align-right"><strong>{{ coin.percent_change|floatformat:2|percentage_format }}</strong></td>
+                    <td class="align-right"><strong>{{ coin.percent_change_1h|floatformat:2|percentage_format }}</strong></td>
+                    <td class="align-right"><strong>{{ coin.percent_change_24h|floatformat:2|percentage_format }}</strong></td>
+                    <td class="align-right"><strong>{{ coin.percent_change_7d|floatformat:2|percentage_format }}</strong></td>
                     <td class="align-right">${{ coin.market_cap|floatformat:"0g" }}</td>
                     <td class="align-right">${{ coin.volume|floatformat:"0g" }}</td>
                 </tr>

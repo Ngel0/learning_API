@@ -1,11 +1,37 @@
 {% extends "base.html" %}
 {% block title %}Crypto Coins Prices{% endblock %}
+{% block head %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".toggle-favourite").click(function(){
+        $.ajax({
+            type: "POST",
+            url: {% url "toggle-favourite" %},
+            headers: { "X-CSRFToken": csrf_token },
+            dataType: "json",
+            data: {
+                coin_id: $(this).attr("coin_id")
+            },
+            success: function(response){
+                console.log(response);
+            },
+            error: function(response){
+                console.log(response);
+            }
+        });
+    });
+});
+var csrf_token = "{{ csrf_token }}";
+</script>
+{% endblock %}
 {% block content %}
 <h1>Cryptocurrencies</h1>
 {% if cryptocurrencies %}
     <table class="table table-hover">
         <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col" class="align-right">Price</th>
@@ -20,6 +46,7 @@
             {% load coin_filters %}
             {% for coin in cryptocurrencies %}
                 <tr>
+                    <td><button class="toggle-favourite" coin_id={{coin.id}}>Toggle</button></td>
                     <td>{{ forloop.counter }}</td>
                     <th scope="row">{{ coin.name }}</th>
                     <td class="align-right"><strong>${{ coin.price|decimal_digits_format|add_commas }}</strong></td>

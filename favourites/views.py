@@ -1,10 +1,27 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render
 from .models import Favourite
 from cryptodata.models import Cryptocurrency
 from django.views import View
 from django.views.generic import ListView
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.contrib.auth import authenticate
+
+
+class FavouriteAddOrDelete(View):
+    def post(self, request):
+        user = authenticate(username="Oleg", password="testuser")#will get rid of when add authentication
+        #user = request.user
+        coin_id = request.POST.get('coin_id')
+        coin = Cryptocurrency.objects.filter(id=coin_id).first()
+        obj, created = Favourite.objects.get_or_create(user=user, cryptocurrency=coin)
+        if not created:
+            obj.delete()
+            print('deleted')
+        else:
+            print('created')
+            #return Json
+        return JsonResponse({'status': 'OK'})
 
 
 class FavouritesListView(ListView):

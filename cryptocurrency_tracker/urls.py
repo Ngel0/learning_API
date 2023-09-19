@@ -17,10 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from cryptodata.views import CoinsListView
-from favourites.views import FavouritesListView
+from favourites.views import FavouritesListView, FavouriteAddOrDelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', CoinsListView.as_view(), name='cryptocurrency_list'),
-    path('watchlist/', FavouritesListView.as_view(), name='watchlist')
+    path('watchlist/', FavouritesListView.as_view(), name='watchlist'),
+    path('toggle-favourite/', FavouriteAddOrDelete.as_view(), name='toggle-favourite'),
 ]

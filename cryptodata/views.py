@@ -5,10 +5,9 @@ import os
 from django.core.paginator import Paginator
 
 
-# Create your views here.
 # Class for handling API from CoinMarketCap
 class CoinMarketCap:
-    #https://coinmarketcap.com/api/documentation/v1/
+    # https://coinmarketcap.com/api/documentation/v1/
     def __init__(self, token) -> None:
         self.api_url = 'https://pro-api.coinmarketcap.com'
         self.headers = {'Accepts': 'application/json',
@@ -16,12 +15,12 @@ class CoinMarketCap:
         self.session = requests.Session()
         self.session.headers.update(self.headers)
 
-    def get_all_coins(self):#definitely need to change sth
+    def get_all_coins(self):  # definitely need to change sth
         url = self.api_url + '/v1/cryptocurrency/map'
         parameters = {'limit': '10'}
         response = self.session.get(url, params=parameters)
         if response.status_code == 200:
-            data = response.json()['data']#else raise error ?
+            data = response.json()['data']  # else raise error ?
         return data
 
     def get_latest_data(self, limit=100):
@@ -39,6 +38,7 @@ class CoinMarketCap:
         if response.status_code == 200:
             data = response.json()['data']
         return data
+
 
 # Scheduled api call
 def fetch_cryptocurrency_data(limit):
@@ -59,7 +59,8 @@ def fetch_cryptocurrency_data(limit):
             }
         )
 
-class ListCoinsView(ListView):
+
+class CoinsListView(ListView):
     model = Cryptocurrency
     context_object_name = 'cryptocurrencies'
     paginate_by = 30
@@ -70,7 +71,7 @@ class ListCoinsView(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        paginator = Paginator(self.model.objects.order_by('-market_cap'), self.paginate_by)
+        paginator = Paginator(self.get_queryset(), self.paginate_by)
         page_number = int(self.request.GET.get('page', 1))
         cryptocurrencies = paginator.get_page(page_number)
         context['cryptocurrencies'] = cryptocurrencies

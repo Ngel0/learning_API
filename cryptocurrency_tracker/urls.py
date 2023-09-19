@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from cryptodata.views import ListCoinsView
+from cryptodata.views import CoinsListView
+from favourites.views import FavouritesListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', ListCoinsView.as_view(), name='cryptocurrency_list'),
+    path('', CoinsListView.as_view(), name='cryptocurrency_list'),
+    path('watchlist/', FavouritesListView.as_view(), name='watchlist')
 ]

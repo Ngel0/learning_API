@@ -10,8 +10,7 @@ from django.contrib.auth import authenticate
 
 class FavouriteAddOrDelete(View):
     def post(self, request):
-        user = authenticate(username="Oleg", password="testuser")#will get rid of when add authentication
-        #user = request.user
+        user = request.user
         coin_id = request.POST.get('coin_id')
         coin = Cryptocurrency.objects.get(id=coin_id)
         obj, created = Favourite.objects.get_or_create(user=user, cryptocurrency=coin)

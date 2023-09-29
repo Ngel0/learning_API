@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from cryptodata.views import CoinsListView
 from favourites.views import FavouritesListView, FavouriteAddOrDelete
 
@@ -24,4 +24,5 @@ urlpatterns = [
     path('', CoinsListView.as_view(), name='cryptocurrency_list'),
     path('watchlist/', FavouritesListView.as_view(), name='watchlist'),
     path('toggle-favourite/', FavouriteAddOrDelete.as_view(), name='toggle-favourite'),
+    path('accounts/', include('accounts.urls'))
 ]

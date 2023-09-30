@@ -24,5 +24,5 @@ urlpatterns = [
     path('', CoinsListView.as_view(), name='cryptocurrency_list'),
     path('watchlist/', FavouritesListView.as_view(), name='watchlist'),
     path('toggle-favourite/', FavouriteAddOrDelete.as_view(), name='toggle-favourite'),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
 ]

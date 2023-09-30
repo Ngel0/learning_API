@@ -1,0 +1,26 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'cryptocurrency_list' %}">
+            <img src="{% static 'images/logo.png' %}" alt="logo" width="55" height="50">
+            CoinInfo
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Navbar toggler">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="navbar-nav me-auto mb-2 mb-lg-0">
+                <a class="nav-link active" aria-current="page" href="{% url 'cryptocurrency_list' %}">Cryptocurrencies</a>
+                <a class="nav-link active" href="{% url 'watchlist' %}">Watchlist</a>
+            </div>
+            {% if user.is_authenticated %}
+                <span class="navbar-text">{{ user.username }}</span>
+                <a class="btn btn-outline-danger mx-2" href="{% url 'logout' %}?next=/">Log Out</a>
+            {% else %}
+                <a class="btn btn-outline-info me-2" href="{% url 'signup' %}">Sign Up</a>
+                <a class="btn btn-outline-success me-2" href="{% url 'login' %}">Log In</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>

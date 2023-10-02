@@ -16,10 +16,6 @@ class FavouriteAddOrDelete(View):
         obj, created = Favourite.objects.get_or_create(user=user, cryptocurrency=coin)
         if not created:
             obj.delete()
-            print('deleted')
-        else:
-            print('created')
-            #return Json
         return JsonResponse({'status': 'OK'})
 
 

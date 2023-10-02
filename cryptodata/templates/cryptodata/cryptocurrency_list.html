@@ -5,16 +5,18 @@
 <script>
 $(document).ready(function(){
     $(".toggle-favourite").click(function(){
+        var button = $(this);
         $.ajax({
             type: "POST",
             url: {% url "toggle-favourite" %},
             headers: { "X-CSRFToken": csrf_token },
             dataType: "json",
             data: {
-                coin_id: $(this).attr("coin_id")
+                coin_id: button.attr("coin_id")
             },
             success: function(response){
                 console.log(response);
+                button.toggleClass("filled");
             },
             error: function(response){
                 console.log(response);
@@ -46,7 +48,7 @@ var csrf_token = "{{ csrf_token }}";
             {% load coin_filters %}
             {% for coin in cryptocurrencies %}
                 <tr>
-                    <td defer><button class="toggle-favourite {% if coin.id in favourites %}filled{% endif %}" coin_id={{coin.id}}>Toggle</button></td>
+                    <td defer><button class="toggle-favourite{% if coin.id in favourites %} filled{% endif %}" coin_id={{coin.id}}>Toggle</button></td>
                     <td>{{ forloop.counter }}</td>
                     <th scope="row">{{ coin.name }}</th>
                     <td class="align-right"><strong>${{ coin.price|decimal_digits_format|add_commas }}</strong></td>

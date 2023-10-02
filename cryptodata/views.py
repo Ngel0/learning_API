@@ -1,5 +1,6 @@
 import requests
 from .models import Cryptocurrency
+from favourites.models import Favourite
 from django.views.generic import ListView
 import os
 from django.core.paginator import Paginator
@@ -75,4 +76,8 @@ class CoinsListView(ListView):
         page_number = int(self.request.GET.get('page', 1))
         cryptocurrencies = paginator.get_page(page_number)
         context['cryptocurrencies'] = cryptocurrencies
+
+        user_id = self.request.user.id
+        favourites_id = Favourite.objects.filter(user=user_id).values_list('cryptocurrency_id', flat=True)
+        context['favourites'] = favourites_id
         return context

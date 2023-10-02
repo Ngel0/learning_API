@@ -2,3 +2,7 @@
 .align-right {
   text-align: right;
 }
+
+.filled {
+  background-color: yellow;
+}

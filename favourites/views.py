@@ -29,7 +29,7 @@ class FavouritesListView(ListView):
         queryset = super().get_queryset()
         user_id = self.request.user.id
         favourites_id = Favourite.objects.filter(user=user_id).values('cryptocurrency')
-        return queryset.filter(id__in=favourites_id).order_by('-market_cap')
+        return queryset.filter(id__in=favourites_id).order_by('rank')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

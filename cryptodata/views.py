@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 
 
 # Class for handling API from CoinMarketCap
+# Not sure which ones will use yet
 class CoinMarketCap:
     # https://coinmarketcap.com/api/documentation/v1/
     def __init__(self, token) -> None:
@@ -49,6 +50,7 @@ def fetch_cryptocurrency_data(limit):
         Cryptocurrency.objects.update_or_create(
             symbol=coin['symbol'],
             defaults={
+                'rank': coin['cmc_rank'],
                 'name': coin['name'],
                 'symbol': coin['symbol'],
                 'price': coin['quote']['USD']['price'],
@@ -68,7 +70,7 @@ class CoinsListView(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.order_by('-market_cap')
+        return queryset.order_by('rank')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

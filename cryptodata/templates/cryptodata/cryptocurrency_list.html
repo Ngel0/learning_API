@@ -31,7 +31,7 @@ var csrf_token = "{{ csrf_token }}";
 </script>
 {% endblock %}
 {% block content %}
-<h1>Cryptocurrencies</h1>
+<h2>Cryptocurrencies</h2>
 {% if cryptocurrencies %}
     <table class="table table-hover">
         <thead>
@@ -51,7 +51,7 @@ var csrf_token = "{{ csrf_token }}";
             {% load coin_filters %}
             {% for coin in cryptocurrencies %}
                 <tr>
-                    <td defer><button class="toggle-favourite{% if coin.id in favourites %} filled{% endif %}" coin_id={{coin.id}}>Toggle</button></td>
+                    <td><button class="toggle-favourite{% if coin.id in favourites %} filled{% endif %}" coin_id={{coin.id}}>Toggle</button></td>
                     <td>{{ forloop.counter }}</td>
                     <th scope="row">{{ coin.name }}</th>
                     <td class="align-right"><strong>${{ coin.price|decimal_digits_format|add_commas }}</strong></td>

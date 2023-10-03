@@ -6,3 +6,9 @@
 .filled {
   background-color: yellow;
 }
+
+.loading {
+  background-color: #ccc;
+  color: #fff;
+  border: none;
+}

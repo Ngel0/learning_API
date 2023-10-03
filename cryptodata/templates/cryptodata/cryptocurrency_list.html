@@ -6,6 +6,7 @@
 $(document).ready(function(){
     $(".toggle-favourite").click(function(){
         var button = $(this);
+        button.addClass("loading");
         $.ajax({
             type: "POST",
             url: {% url "toggle-favourite" %},
@@ -17,9 +18,11 @@ $(document).ready(function(){
             success: function(response){
                 console.log(response);
                 button.toggleClass("filled");
+                button.removeClass("loading");
             },
             error: function(response){
                 console.log(response);
+                button.removeClass("loading");
             }
         });
     });

@@ -1,34 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Crypto Coins Prices{% endblock %}
 {% block head %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script>
-$(document).ready(function(){
-    $(".toggle-favourite").click(function(){
-        var button = $(this);
-        button.addClass("loading");
-        $.ajax({
-            type: "POST",
-            url: {% url "toggle-favourite" %},
-            headers: { "X-CSRFToken": csrf_token },
-            dataType: "json",
-            data: {
-                coin_id: button.attr("coin_id")
-            },
-            success: function(response){
-                console.log(response);
-                button.toggleClass("filled");
-                button.removeClass("loading");
-            },
-            error: function(response){
-                console.log(response);
-                button.removeClass("loading");
-            }
-        });
-    });
-});
-var csrf_token = "{{ csrf_token }}";
-</script>
+{% load static %}
+<script src="{% static 'js/list-table.js' %}"></script>
 {% endblock %}
 {% block content %}
 <h2>Cryptocurrencies</h2>
@@ -51,7 +25,8 @@ var csrf_token = "{{ csrf_token }}";
             {% load coin_filters %}
             {% for coin in cryptocurrencies %}
                 <tr>
-                    <td><button class="toggle-favourite{% if coin.id in favourites %} filled{% endif %}" coin_id={{coin.id}}>Toggle</button></td>
+                    <td><button class="toggle-favourite{% if coin.id in favourites %} filled{% endif %}" 
+                        data-coin_id={{coin.id}} data-url="{% url 'toggle-favourite' %}" data-csrf="{{ csrf_token }}">Toggle</button></td>
                     <td>{{ coin.rank }}</td>
                     <th scope="row">{{ coin.name }}</th>
                     <td class="align-right"><strong>${{ coin.price|decimal_digits_format|add_commas }}</strong></td>

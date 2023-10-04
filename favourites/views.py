@@ -1,11 +1,9 @@
-from django.shortcuts import render
 from .models import Favourite
 from cryptodata.models import Cryptocurrency
 from django.views import View
 from django.views.generic import ListView
 from django.http import JsonResponse
 from django.core.paginator import Paginator
-from django.contrib.auth import authenticate
 
 
 class FavouriteAddOrDelete(View):

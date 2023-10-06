@@ -4,6 +4,7 @@ from django.views import View
 from django.views.generic import ListView
 from django.http import JsonResponse
 from django.core.paginator import Paginator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class FavouriteAddOrDelete(View):
@@ -17,7 +18,7 @@ class FavouriteAddOrDelete(View):
         return JsonResponse({'status': 'OK'})
 
 
-class FavouritesListView(ListView):
+class FavouritesListView(LoginRequiredMixin, ListView):
     model = Cryptocurrency
     context_object_name = 'cryptocurrencies'
     paginate_by = 30

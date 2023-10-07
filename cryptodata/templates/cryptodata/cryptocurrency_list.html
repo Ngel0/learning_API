@@ -75,11 +75,4 @@
 {% else %}
     No cryptocurrencies found.
 {% endif %}
-<ul>
-    {% for coin in cryptocurrencies %}
-        <li>{{ coin.name }} - {{ coin.created_at }} - {{ coin.updated_at }}</li>
-    {% empty %}
-        <li>No cryptocurrencies found.</li>
-    {% endfor %}
-</ul>
 {% endblock %}

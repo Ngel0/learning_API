@@ -34,9 +34,9 @@
                     <td>{{ coin.rank }}</td>
                     <th scope="row">{{ coin.name }}</th>
                     <td class="align-right"><strong>${{ coin.price|decimal_digits_format|add_commas }}</strong></td>
-                    <td class="align-right"><strong>{{ coin.percent_change_1h|floatformat:2|percentage_format }}</strong></td>
-                    <td class="align-right"><strong>{{ coin.percent_change_24h|floatformat:2|percentage_format }}</strong></td>
-                    <td class="align-right"><strong>{{ coin.percent_change_7d|floatformat:2|percentage_format }}</strong></td>
+                    <td class="align-right"><strong>{{ coin.percent_change_1h|percentage_format }}</strong></td>
+                    <td class="align-right"><strong>{{ coin.percent_change_24h|percentage_format }}</strong></td>
+                    <td class="align-right"><strong>{{ coin.percent_change_7d|percentage_format }}</strong></td>
                     <td class="align-right">${{ coin.market_cap|floatformat:"0g" }}</td>
                     <td class="align-right">${{ coin.volume|floatformat:"0g" }}</td>
                 </tr>

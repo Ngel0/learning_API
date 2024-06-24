@@ -88,6 +88,18 @@ LOGIN_REDIRECT_URL = 'cryptocurrency_list'
 # URL to redirect to after logout
 LOGOUT_REDIRECT_URL = 'cryptocurrency_list'
 
+# Cache settings
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+        'OPTIONS': {
+            'db': '1',
+            'parser_class': 'redis.connection.HiredisParser',
+        }
+    }
+}
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 

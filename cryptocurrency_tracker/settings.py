@@ -95,7 +95,7 @@ CACHES = {
         'LOCATION': 'redis://127.0.0.1:6379',
         'OPTIONS': {
             'db': '1',
-            'parser_class': 'redis.connection.HiredisParser',
+            "parser_class": "redis.connection._HiredisParser",
         }
     }
 }

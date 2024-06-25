@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'cryptodata',
     'favourites',
     'accounts',
+    # the debug toolbar
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,9 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    # debug toolbar middleware
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -113,6 +118,11 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT'),
     }
 }
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',  # Add your development machine's IP address here
+]
 
 
 # Password validation

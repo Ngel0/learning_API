@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import debug_toolbar
+
 from cryptodata.views import CoinsListView
 from favourites.views import FavouritesListView, FavouriteAddOrDelete
 
@@ -25,4 +27,6 @@ urlpatterns = [
     path('watchlist/', FavouritesListView.as_view(), name='watchlist'),
     path('toggle-favourite/', FavouriteAddOrDelete.as_view(), name='toggle-favourite'),
     path('accounts/', include('accounts.urls')),
+    # debug toolbar URLS
+    path('__debug__/', include(debug_toolbar.urls)),
 ]

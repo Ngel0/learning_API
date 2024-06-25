@@ -24,6 +24,7 @@ class FavouritesListView(LoginRequiredMixin, ListView):
     paginate_by = 30
     template_name = 'favourites/watchlist.html'
 
+    # only favourited coins get in queryset
     def get_queryset(self):
         queryset = super().get_queryset()
         user_id = self.request.user.id
@@ -34,10 +35,6 @@ class FavouritesListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(*args, **kwargs)
         paginator = Paginator(self.get_queryset(), self.paginate_by)
         page_number = int(self.request.GET.get('page', 1))
-        cryptocurrencies = paginator.get_page(page_number)
-        context['cryptocurrencies'] = cryptocurrencies
-
-        user_id = self.request.user.id
-        favourites_id = Favourite.objects.filter(user=user_id).values_list('cryptocurrency_id', flat=True)
-        context['favourites'] = favourites_id
+        favourite_cryptocurrencies = paginator.get_page(page_number)
+        context['favourite_cryptocurrencies'] = favourite_cryptocurrencies
         return context

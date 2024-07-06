@@ -1,4 +1,6 @@
 {% load static %}
+{% load cache %}
+{% cache 900 navbar request.user.username %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container">
         <a class="navbar-brand" href="{% url 'cryptocurrency_list' %}">
@@ -27,3 +29,4 @@
         </div>
     </div>
 </nav>
+{% endcache %}

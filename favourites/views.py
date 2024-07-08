@@ -5,6 +5,7 @@ from django.views.generic import ListView
 from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 
 
 class FavouriteAddOrDelete(View):
@@ -28,5 +29,9 @@ class FavouritesListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         user_id = self.request.user.id
-        favourites_id = Favourite.objects.filter(user=user_id).values('cryptocurrency')
+        favourites_id_cache_key = f'favourites_{user_id}'
+        favourites_id = cache.get(favourites_id_cache_key)
+        if not favourites_id:
+            favourites_id = Favourite.objects.filter(user=user_id).values_list('cryptocurrency_id', flat=True)
+            cache.set(favourites_id_cache_key, favourites_id, 60 * 5)
         return queryset.filter(id__in=favourites_id).order_by('rank')

@@ -3,6 +3,7 @@ import os
 
 from django.views.generic import ListView
 from django.core.paginator import Paginator
+from django.core.cache import cache
 
 from favourites.models import Favourite
 from .models import Cryptocurrency
@@ -75,6 +76,10 @@ class CoinsListView(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         user_id = self.request.user.id
-        favourites_id = Favourite.objects.filter(user=user_id).values_list('cryptocurrency_id', flat=True)
+        favourites_id_cache_key = f'favourites_{user_id}'
+        favourites_id = cache.get(favourites_id_cache_key)
+        if not favourites_id:
+            favourites_id = Favourite.objects.filter(user=user_id).values_list('cryptocurrency_id', flat=True)
+            cache.set(favourites_id_cache_key, favourites_id, 60 * 5)
         context['favourites'] = favourites_id
         return context

@@ -23,7 +23,7 @@
         </thead>
         <tbody>
             {% load coin_filters %}
-            {% for coin in favourite_cryptocurrencies %}
+            {% for coin in cryptocurrencies %}
                 <tr>
                     <td><button class="toggle-favourite filled" 
                         data-coin_id={{coin.id}} data-url="{% url 'toggle-favourite' %}" data-csrf="{{ csrf_token }}">Toggle</button></td>
